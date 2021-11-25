@@ -1,0 +1,36 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch API",
+            "runtimeExecutable": "npm",
+            "cwd": "${workspaceFolder}/messenger-api",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch APP",
+            "runtimeExecutable": "npm",
+            "cwd": "${workspaceFolder}/messenger-app",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+}
