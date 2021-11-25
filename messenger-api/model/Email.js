@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const connection = require('../db/connection');
-const Usuario = require('./Usuario')
 
 const Email = connection.define('Email', {
     assunto: {
@@ -10,23 +9,14 @@ const Email = connection.define('Email', {
     mensagem: { 
         type: Sequelize.STRING
     },
-    destinatario: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: Usuario,
-            key: 'id'
-        }
-    },
-    remetente: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: Usuario,
-            key: 'id'
-        }
+    visualizado: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 })
+
+Email.belongsTo(connection.models.Usuario, {as: 'destinatario'})
+Email.belongsTo(connection.models.Usuario, {as: 'remetente'})
 
 Email.sync();
 
