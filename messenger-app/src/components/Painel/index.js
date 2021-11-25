@@ -5,6 +5,7 @@ import Enviados from '../Enviados'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { setEmailsEnviados, setEmailsRecebidos } from '../../actions'
+import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 
 function Painel() {
@@ -39,7 +40,11 @@ function Painel() {
         buscarEmailsEnviados()
     }, [usuario.token, dispatch])
 
-    return (
+    function getToken() {
+        return usuario.token || localStorage.getItem('token') 
+    }
+
+    return !getToken() ? (<Navigate to='/'/>) : (
         <>
             <Navbar/>
             <div className="d-flex">
