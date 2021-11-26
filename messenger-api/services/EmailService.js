@@ -61,7 +61,12 @@ module.exports = {
     async findById(req, res) {
         try {
             const { id } = req.params;
-            const email = await Email.findOne({ where: {id} })
+            const email = await Email.findOne({ 
+                include: includeAttributes,
+                attributes: {
+                    exclude: excludeAttributes
+                },
+                where: {id} })
             if (email) {
                 return res.json(email);
             }
