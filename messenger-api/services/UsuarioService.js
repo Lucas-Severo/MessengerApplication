@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const getUserIdByToken = require('../helpers/TokenHelper');
 const Usuario = require('../model/Usuario');
 const SECRET = '1234'
 
@@ -15,6 +16,8 @@ module.exports = {
     async insert(req, res) {
         try {
             const usuario = req.body;
+            await isUniqueEmail(req.body.email)
+
             const novoUsuario = await Usuario.create(usuario);
             return res.json(novoUsuario);
         } catch (ex) {
@@ -73,5 +76,42 @@ module.exports = {
                 message: err.message
             })
         }
+    },
+
+    async findByEmail(req, res) {
+        try {
+            const { email } = req.params;
+            const usuario = await Usuario.findOne({ where: {email} })
+            if (usuario) {
+                return res.json(usuario);
+            }
+            return res.status(400).json({message: 'Usuário não encontrado'})
+        } catch (ex) {
+            return res.status(500).json({message: ex.message})
+        }
+    },
+
+    async findByToken(req, res) {
+        try {
+            const token = req.headers['authorization']
+            const userId = getUserIdByToken(token, SECRET)
+            
+            if (userId) {
+                const usuario = await Usuario.findOne({where: {id: userId}})
+                return res.json(usuario);
+            }
+            return res.status(400).json({message: 'Usuário não encontrado'})
+        } catch (ex) {
+            return res.status(500).json({message: ex.message})
+        }
     }
+}
+
+function isUniqueEmail(value) {
+    return Usuario.findOne({where:{email:value}})
+      .then((name) => {
+        if (name) {
+          throw new Error('Email já em uso');
+        }
+    })
 }

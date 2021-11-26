@@ -4,24 +4,25 @@ import Entrada from '../Entrada'
 import Enviados from '../Enviados'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { setEmailsEnviados, setEmailsRecebidos } from '../../actions'
+import { setEmailsEnviados, setEmailsRecebidos, setUsuario } from '../../actions'
 import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 import EnviarEmail from "../EnviarEmail"
+import VisualizarEmail from "../VisualizarEmail"
 
 function Painel() {
     const { paginaAtual } = useSelector(state => state)
-    const { usuario } = useSelector(state => state)
+    const { token } = useSelector(state => state)
     const dispatch = useDispatch()
 
     useEffect(() => {
         async function buscarEmailsRecebidos() {
             const config = {
                 headers: {
-                   Authorization: usuario.token || localStorage.getItem('token') 
+                   Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/', config)
+            axios.get('http://localhost:1337/emails/recebidos', config)
             .then(response => {
                 dispatch(setEmailsRecebidos(response.data.emails))
             })
@@ -29,20 +30,32 @@ function Painel() {
         async function buscarEmailsEnviados() {
             const config = {
                 headers: {
-                   Authorization: usuario.token || localStorage.getItem('token') 
+                   Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/', config)
+            axios.get('http://localhost:1337/emails/enviados', config)
             .then(response => {
                 dispatch(setEmailsEnviados(response.data.emails))
             })
         }
+        async function buscarUsuario() {
+            const config = {
+                headers: {
+                   Authorization: token || localStorage.getItem('token') 
+                }
+            }
+            axios.get('http://localhost:1337/usuarios/token', config)
+            .then(response => {
+                dispatch(setUsuario(response.data))
+            })
+        }
         buscarEmailsRecebidos()
         buscarEmailsEnviados()
-    }, [usuario.token, dispatch])
+        buscarUsuario()
+    }, [token, dispatch])
 
     function getToken() {
-        return usuario.token || localStorage.getItem('token') 
+        return token || localStorage.getItem('token') 
     }
 
     return !getToken() ? (<Navigate to='/'/>) : (
@@ -54,7 +67,8 @@ function Painel() {
                     {
                         'entrada': <Entrada/>,
                         'enviados': <Enviados/>,
-                        'enviar': <EnviarEmail/>
+                        'enviar': <EnviarEmail/>,
+                        'visualizarEmail': <VisualizarEmail/>
                     }[paginaAtual]
                 }
             </div>

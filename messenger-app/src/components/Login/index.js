@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setUsuario } from '../../actions'
+import { setToken } from '../../actions'
 import axios from 'axios'
 import './style.css'
 
@@ -20,7 +20,7 @@ function Login() {
                 localStorage.setItem('token', response.data.token)
             } else {
                 localStorage.removeItem('token')
-                dispatch(setUsuario(response.data))
+                dispatch(setToken(response.data.token))
             }
             setInformacoesInvalidas(true)
             setLoginRealizado(true)

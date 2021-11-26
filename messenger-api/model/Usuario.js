@@ -11,18 +11,14 @@ const Usuario = connection.define('Usuario', {
     },
     email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     senha: {
         type: Sequelize.STRING,
         allowNull: false
     }
 })
-
-Usuario.associate = (models) => {
-    Usuario.hasMany(models.Email, {foreignKey: 'destinatario'})
-    Usuario.hasMany(models.Email, {foreignKey: 'remetente'})
-}
 
 Usuario.sync();
 

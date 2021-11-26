@@ -4,7 +4,6 @@ import axios from 'axios'
 import './style.css'
 
 class Cadastro extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -23,8 +22,10 @@ class Cadastro extends Component {
         }else{
             axios.post('http://localhost:1337/usuarios', this.state).then(() => {
                 this.setState({cadastrado: true})
-            }).catch(err => {
                 this.setState({informacoesInvalidas: false})
+                this.setState({mensagemErro: ''})
+            }).catch(err => {
+                this.setState({informacoesInvalidas: true})
                 this.setState({mensagemErro: err.response.data.message})
             })
         }

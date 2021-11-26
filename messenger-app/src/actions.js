@@ -25,3 +25,24 @@ export function setEmailsEnviados(emailsEnviados) {
         payload: emailsEnviados
     }
 }
+
+export function setToken(token) {
+    return {
+        type: "SET_TOKEN",
+        payload: token
+    }
+}
+
+export function setEmailId(emailId) {
+    return {
+        type: "SET_EMAIL_ID",
+        payload: emailId
+    }
+}
+
+export function setTipoVisualizacao(tipoVisualizacao) {
+    return {
+        type: "SET_TIPO_VISUALIZACAO",
+        payload: tipoVisualizacao
+    }
+}

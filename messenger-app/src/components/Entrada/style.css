@@ -5,6 +5,11 @@
 .naoLida {
     border-left: 3px solid red;
     background-color: none;
+    font-weight: bold;
+}
+
+.lido {
+    border: 3px solid white;
 }
 
 .bg-none {

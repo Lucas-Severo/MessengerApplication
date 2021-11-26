@@ -1,6 +1,7 @@
 import './style.css'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setEmailsRecebidos, setEmailsEnviados } from '../../actions'
 import axios from 'axios'
 
 function EnviarEmail() {
@@ -9,27 +10,60 @@ function EnviarEmail() {
     const [mensagem, setMensagem] = useState('')
     const [mensagemErro, setMensagemErro] = useState('')
     const [enviado, setEnviado] = useState(false)
-    const { usuario } = useSelector(state => state)
+    const { token, usuario } = useSelector(state => state)
+    const dispatch = useDispatch()
 
-    function handleEnviar() {
+    async function handleEnviar() {
         if(camposValidos()) {
-            limparCampos()
-            setEnviado(true)
+            const remetenteId = await buscarRemetente()
+            if(!remetenteId) return
             const email = {
                 assunto,
                 mensagem,
-                destinatario: 1,
-                remetente: 2
+                destinatarioId: remetenteId,
+                remetenteId: usuario.id
             }
             const config = {
                 headers: {
-                   Authorization: usuario.token || localStorage.getItem('token') 
+                   Authorization: token || localStorage.getItem('token') 
                 }
             }
             axios.post('http://localhost:1337/emails/', email, config).then(response => {
                 console.log(response)
             })
+            setEnviado(true)
+            setMensagemErro('')
+            buscarEmails()
+            limparCampos()
         }
+    }
+
+    function buscarEmails() {
+        buscarEmailsRecebidos()
+        buscarEmailsEnviados()
+    }
+
+    async function buscarEmailsRecebidos() {
+        const config = {
+            headers: {
+                Authorization: token || localStorage.getItem('token') 
+            }
+        }
+        axios.get('http://localhost:1337/emails/recebidos', config)
+        .then(response => {
+            dispatch(setEmailsRecebidos(response.data.emails))
+        })
+    }
+    async function buscarEmailsEnviados() {
+        const config = {
+            headers: {
+                Authorization: token || localStorage.getItem('token') 
+            }
+        }
+        await axios.get('http://localhost:1337/emails/enviados', config)
+        .then(response => {
+            dispatch(setEmailsEnviados(response.data.emails))
+        })
     }
 
     function camposValidos() {
@@ -45,6 +79,20 @@ function EnviarEmail() {
         }
         setMensagemErro('')
         return true
+    }
+
+    async function buscarRemetente() {
+        const config = {
+            headers: {
+               Authorization: token || localStorage.getItem('token') 
+            }
+        }
+        try {
+            const response = await axios.get('http://localhost:1337/usuarios/email/' + rementente, config)
+            return response.data.id
+        } catch(e) {
+            setMensagemErro('Rementente inválido')
+        }
     }
 
     function limparCampos() {
@@ -70,7 +118,7 @@ function EnviarEmail() {
             { enviado && <p className="text-success mt-1">E-mail enviado com sucesso!</p> }
             <div className="mt-2">
                 <button onClick={handleEnviar} className="btn btn-primary botao me-2"><i className="fas fa-share-square me-2"></i>Enviar</button>
-                <button className="btn btn-danger botao"><i className="fas fa-trash me-2"></i>Descartar</button>
+                <button onClick={limparCampos} className="btn btn-danger botao"><i className="fas fa-trash me-2"></i>Descartar</button>
             </div>
         </div>
     )
