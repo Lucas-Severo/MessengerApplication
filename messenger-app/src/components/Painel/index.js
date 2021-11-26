@@ -52,7 +52,7 @@ function Painel() {
                     localStorage.removeItem('token')
                 }
             }).catch(() => {
-                dispatch(setToken(''))
+                dispatch(setToken(null))
                 localStorage.removeItem('token')
             })
         }

@@ -37,7 +37,7 @@ function Entrada() {
                 return (
                     <div key={index} onClick={event => handleVisualizar(event, email.id)} className={'listagem border-bottom ' + (email.visualizado ? 'lida' : 'naoLida')}>
                         <a className="bg-none list-group-item list-group-item-action border-0 d-flex justify-content-between row" href="/#">
-                            <p className="col-1 mb-0">{email.destinatario.nome}</p>
+                            <p className="col-1 mb-0">{email.remetente.nome}</p>
                             <p className="col-7 mb-0">{email.assunto}</p>
                             <div className="col-2 d-flex justify-content-end">
                                 <p className="mb-0">{new Date(email.createdAt).toLocaleDateString('pt-br', {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</p>
