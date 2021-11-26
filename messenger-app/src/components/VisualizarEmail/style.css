@@ -1,0 +1,8 @@
+.botao {
+    height: 32px;
+    font-size: 0.8rem;
+}
+
+.visualizar {
+    width: calc(100vw - 260px);
+}
