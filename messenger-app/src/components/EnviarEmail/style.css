@@ -1,0 +1,12 @@
+.envio {
+    width: calc(100vw - 220px);
+}
+
+.resize-none {
+    resize: none;
+}
+
+.botao {
+    height: 32px;
+    font-size: 0.8rem;
+}

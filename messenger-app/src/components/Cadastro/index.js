@@ -8,8 +8,9 @@ class Cadastro extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            senhaInvalida: false,
-            cadastrado: false
+            informacoesInvalidas: false,
+            cadastrado: false,
+            mensagemErro: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -17,11 +18,15 @@ class Cadastro extends Component {
     async handleSubmit(event) {
         event.preventDefault()
         if(this.state.senha !== this.state.senhaRepetida) {
-            this.setState({senhaInvalida: true})
+            this.setState({informacoesInvalidas: true})
+            this.setState({mensagemErro: 'Senha não iguais. Tente novamente'})
         }else{
-            this.setState({senhaInvalida: false})
-            this.setState({cadastrado: true})
-            await axios.post('http://localhost:1337/usuarios', this.state)
+            axios.post('http://localhost:1337/usuarios', this.state).then(() => {
+                this.setState({cadastrado: true})
+            }).catch(err => {
+                this.setState({informacoesInvalidas: false})
+                this.setState({mensagemErro: err.response.data.message})
+            })
         }
     }
 
@@ -89,7 +94,7 @@ class Cadastro extends Component {
                         />
                         <a href="/" className="text-decoration-none mt-2 mb-2">Já tenho uma conta</a>
                         <button className="btn btn-primary">Cadastrar-se</button>
-                        {this.state.senhaInvalida && <p className="senhaNaoIgual mb-1 mt-1">Senha não iguais. Tente novamente</p>}
+                        {this.state.informacoesInvalidas && <p className="text-danger mb-1 mt-1">{this.state.mensagemErro}</p>}
                     </form>
                 </div>
             </div>

@@ -1,0 +1,16 @@
+.listagem {
+    width: calc(100vw - 220px);
+}
+
+.naoLida {
+    border-left: 3px solid red;
+    background-color: none;
+}
+
+.bg-none {
+    background-color: inherit;
+}
+
+.bg-none:hover {
+    background-color: inherit;
+}
