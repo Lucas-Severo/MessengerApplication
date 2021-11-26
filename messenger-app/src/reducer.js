@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    usuario: {},
+    usuario: null,
     paginaAtual: 'entrada',
     emailsRecebidos: [],
     emailsEnviados: [],

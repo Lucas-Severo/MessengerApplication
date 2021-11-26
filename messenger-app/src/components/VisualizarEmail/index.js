@@ -30,7 +30,7 @@ function VisualizarEmail() {
         }
         buscarEmail()
         visualizarEmail()
-    }, [emailId, token])
+    }, [emailId, token, tipoVisualizacao])
 
     return (
         <div className="m-2">

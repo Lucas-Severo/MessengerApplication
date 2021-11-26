@@ -45,7 +45,7 @@ function Entrada() {
                         </a>
                     </div>
             )}) : (
-                <div className="m-auto d-flex flex-column align-items-center">Não há e-mails enviados<i className="far fa-sticky-note h1"></i></div>
+                <div className="m-auto d-flex flex-column align-items-center">Não há e-mails recebidos<i className="far fa-sticky-note h1"></i></div>
             )}
         </div>
     )

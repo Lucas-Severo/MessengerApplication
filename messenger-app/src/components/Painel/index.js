@@ -4,7 +4,7 @@ import Entrada from '../Entrada'
 import Enviados from '../Enviados'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { setEmailsEnviados, setEmailsRecebidos, setUsuario } from '../../actions'
+import { setEmailsEnviados, setEmailsRecebidos, setToken, setUsuario } from '../../actions'
 import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 import EnviarEmail from "../EnviarEmail"
@@ -47,6 +47,13 @@ function Painel() {
             axios.get('http://localhost:1337/usuarios/token', config)
             .then(response => {
                 dispatch(setUsuario(response.data))
+                if(!response.data.id) {
+                    dispatch(setToken(''))
+                    localStorage.removeItem('token')
+                }
+            }).catch(() => {
+                dispatch(setToken(''))
+                localStorage.removeItem('token')
             })
         }
         buscarEmailsRecebidos()

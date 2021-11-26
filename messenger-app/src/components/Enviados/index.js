@@ -34,8 +34,8 @@ function Enviados() {
         <div className="listagem pt-2 list-group">
             {emailsEnviados.length !== 0 ? emailsEnviados.map((email, index) => {
                 return (
-                <div className="listagem border-bottom">
-                    <a key={index} onClick={event => handleVisualizar(event, email.id)} className="bg-none list-group-item list-group-item-action border-0 d-flex justify-content-between row" href="/#">
+                <div key={index} className="listagem border-bottom">
+                    <a onClick={event => handleVisualizar(event, email.id)} className="bg-none list-group-item list-group-item-action border-0 d-flex justify-content-between row" href="/#">
                         <p className="col-1 mb-0">{email.remetente.nome}</p>
                         <p className="col-7 mb-0">{email.assunto}</p>
                         <div className="col-2 d-flex justify-content-end">
