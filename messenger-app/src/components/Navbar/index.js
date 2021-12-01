@@ -16,7 +16,7 @@ function Navbar() {
             <p className="m-0 ps-4 text-white"><strong>Messenger APP</strong></p>
             <div className="d-flex pe-4 h-100 align-items-center">
                 <p className="m-0 text-white me-3">{usuario && usuario.nome}</p>
-                <button onClick={handleSair} className="m-0 btn btn btn-outline-danger text-decoration-none" href="/#">Sair</button>
+                <button onClick={handleSair} className="m-0 btn btn-outline-danger" href="/#">Sair</button>
             </div>
         </div>
     )

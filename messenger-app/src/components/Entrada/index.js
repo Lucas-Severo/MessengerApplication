@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setPaginaAtual, setEmailId, setTipoVisualizacao } from '../../actions'
 import { useEffect } from 'react'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import { setEmailsRecebidos } from '../../actions'
 import './style.css'
 
@@ -23,7 +23,7 @@ function Entrada() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/recebidos', config)
+            axios.get('/emails/recebidos', config)
             .then(response => {
                 dispatch(setEmailsRecebidos(response.data.emails))
             })

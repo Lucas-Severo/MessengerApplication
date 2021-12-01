@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { setEmailsEnviados, setEmailsRecebidos, setToken, setUsuario } from '../../actions'
 import { Navigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import EnviarEmail from "../EnviarEmail"
 import VisualizarEmail from "../VisualizarEmail"
 
@@ -22,7 +22,7 @@ function Painel() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/recebidos', config)
+            axios.get('/emails/recebidos', config)
             .then(response => {
                 dispatch(setEmailsRecebidos(response.data.emails))
             })
@@ -33,7 +33,7 @@ function Painel() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/enviados', config)
+            axios.get('/emails/enviados', config)
             .then(response => {
                 dispatch(setEmailsEnviados(response.data.emails))
             })
@@ -44,7 +44,7 @@ function Painel() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/usuarios/token', config)
+            axios.get('/usuarios/token', config)
             .then(response => {
                 dispatch(setUsuario(response.data))
                 if(!response.data.id) {
