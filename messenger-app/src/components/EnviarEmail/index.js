@@ -2,7 +2,7 @@ import './style.css'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmailsRecebidos, setEmailsEnviados } from '../../actions'
-import axios from 'axios'
+import axios from '../../utils/axios'
 
 function EnviarEmail() {
     const [rementente, setRemetente] = useState('')
@@ -28,7 +28,7 @@ function EnviarEmail() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.post('http://localhost:1337/emails/', email, config).then(response => {
+            axios.post('/emails/', email, config).then(response => {
                 console.log(response)
             })
             setEnviado(true)
@@ -49,7 +49,7 @@ function EnviarEmail() {
                 Authorization: token || localStorage.getItem('token') 
             }
         }
-        axios.get('http://localhost:1337/emails/recebidos', config)
+        axios.get('/emails/recebidos', config)
         .then(response => {
             dispatch(setEmailsRecebidos(response.data.emails))
         })
@@ -60,7 +60,7 @@ function EnviarEmail() {
                 Authorization: token || localStorage.getItem('token') 
             }
         }
-        await axios.get('http://localhost:1337/emails/enviados', config)
+        await axios.get('/emails/enviados', config)
         .then(response => {
             dispatch(setEmailsEnviados(response.data.emails))
         })

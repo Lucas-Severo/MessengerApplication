@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPaginaAtual } from '../../actions'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import './style.css'
 
 function VisualizarEmail() {
@@ -16,7 +16,7 @@ function VisualizarEmail() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/' + emailId, config)
+            axios.get('/emails/' + emailId, config)
             .then(response => {
                 setEmail(response.data)
             })
@@ -28,7 +28,7 @@ function VisualizarEmail() {
                 }
             }
             if(tipoVisualizacao === 'recebido') {
-                axios.put('http://localhost:1337/emails/visualizar/' + emailId, {}, config)
+                axios.put('/emails/visualizar/' + emailId, {}, config)
             }
         }
         buscarEmail()

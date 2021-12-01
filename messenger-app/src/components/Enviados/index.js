@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmailId, setPaginaAtual, setTipoVisualizacao, setEmailsEnviados } from '../../actions'
 import { useEffect } from 'react'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import './style.css'
 
 function Enviados() {
@@ -22,7 +22,7 @@ function Enviados() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.get('http://localhost:1337/emails/enviados', config)
+            axios.get('/emails/enviados', config)
             .then(response => {
                 dispatch(setEmailsEnviados(response.data.emails))
             })

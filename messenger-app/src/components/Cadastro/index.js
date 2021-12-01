@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Navigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import './style.css'
 
 class Cadastro extends Component {
@@ -20,7 +20,7 @@ class Cadastro extends Component {
             this.setState({informacoesInvalidas: true})
             this.setState({mensagemErro: 'Senha não iguais. Tente novamente'})
         }else{
-            axios.post('http://localhost:1337/usuarios', this.state).then(() => {
+            axios.post('/usuarios', this.state).then(() => {
                 this.setState({cadastrado: true})
                 this.setState({informacoesInvalidas: false})
                 this.setState({mensagemErro: ''})

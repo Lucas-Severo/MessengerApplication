@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setToken } from '../../actions'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import './style.css'
 
 function Login() {
@@ -15,7 +15,7 @@ function Login() {
 
     async function handleSubmit(event) {
         event.preventDefault()
-        axios.post('http://localhost:1337/usuarios/login', informacoesUsuario).then(response => {
+        axios.post('/usuarios/login', informacoesUsuario).then(response => {
             if (manterConectado) {
                 localStorage.setItem('token', response.data.token)
             } else {
