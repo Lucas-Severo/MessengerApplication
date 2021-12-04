@@ -44,8 +44,8 @@ function VisualizarEmail() {
         <div className="m-2 visualizar">
             <button onClick={handleSair} className="btn btn-primary botao mb-2"><i class="fas fa-arrow-left me-2"></i>Voltar</button>
             <h2>{email.assunto}</h2>
-            <p>De: {tipoVisualizacao === 'recebido' ? (email.destinatario && email.destinatario.email) : (email.remetente && email.remetente.email)}</p>
-            <p>Para: {tipoVisualizacao === 'recebido' ? (email.remetente && email.remetente.email) : (email.destinatario && email.destinatario.email)}</p>
+            <p>De: {email.remetente && email.remetente.email}</p>
+            <p>Para: {email.destinatario && email.destinatario.email}</p>
             <p>{email.mensagem}</p>
         </div>
     )

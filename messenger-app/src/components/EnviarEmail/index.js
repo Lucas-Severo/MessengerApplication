@@ -88,7 +88,7 @@ function EnviarEmail() {
             }
         }
         try {
-            const response = await axios.get('http://localhost:1337/usuarios/email/' + rementente, config)
+            const response = await axios.get('/usuarios/email/' + rementente, config)
             return response.data.id
         } catch(e) {
             setMensagemErro('Rementente inválido')
