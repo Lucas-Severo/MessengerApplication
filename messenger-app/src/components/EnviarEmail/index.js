@@ -28,9 +28,7 @@ function EnviarEmail() {
                    Authorization: token || localStorage.getItem('token') 
                 }
             }
-            axios.post('/emails/', email, config).then(response => {
-                console.log(response)
-            })
+            axios.post('/emails/', email, config)
             setEnviado(true)
             setMensagemErro('')
             buscarEmails()
@@ -92,6 +90,7 @@ function EnviarEmail() {
             return response.data.id
         } catch(e) {
             setMensagemErro('Rementente inválido')
+            setEnviado(false)
         }
     }
 

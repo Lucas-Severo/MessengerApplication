@@ -26,7 +26,7 @@ function Login() {
             setLoginRealizado(true)
         }).catch((err) => {
             setInformacoesInvalidas(true)
-            setMensagemErro(err.response.data.message)
+            setMensagemErro((err.response && err.response.data.message) || "Erro ao tentar conectar-se com o servidor.")
         })
     }
 

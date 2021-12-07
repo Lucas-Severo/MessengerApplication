@@ -1,6 +1,6 @@
 # Messenger APP :iphone: :left_right_arrow: :iphone:
 
-O objetivo desse projeto é utilizar de uma API REST para a comunicação entre clientes, podendo assim que várias instâncias de um aplicativo possam se integrar com esse servidor central
+O objetivo desse projeto é utilizar de uma API REST para a comunicação entre clientes, podendo assim que várias instâncias de um aplicativo possam se integrar com esse servidor central. Feito por: Gabriel Rodrigues Severo e Lucas Rodrigues Severo.
 
 ### Requisitos
 
